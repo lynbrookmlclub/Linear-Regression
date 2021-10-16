@@ -1,0 +1,38 @@
+"""
+install: 
+    - sealion
+    - matplotlib
+    - numpy 
+"""
+
+import matplotlib.pyplot as plt 
+import numpy as np
+
+
+np.random.seed(420)
+
+# create a line with y = 2x + 1
+X = np.random.randn(100, 1)
+y = 2 * X + 1
+
+# we will want to graph this. 
+#plt.show()
+
+# now we need to create a function to find the m and b that are closest to this line. 
+# the m closest to this line is 2
+# the b closest to this line is 1
+
+from sealion.regression import LinearRegression
+lin_reg = LinearRegression()
+
+lin_reg.fit(X, y.flatten()) # this will train the model 
+print(lin_reg.weights, lin_reg.bias) # weights is just m, bias is just b. 
+
+print(lin_reg.predict([[10]])) # ideally this should be close to 2 * 10 + 1 = 21 
+
+
+# plot the difference in the actual stuff and the predictions
+plt.scatter(X, y, color = "blue", label="labels!")
+plt.scatter(X, lin_reg.predict(X), color = "green", label = "predictions")
+plt.legend()
+plt.show()
